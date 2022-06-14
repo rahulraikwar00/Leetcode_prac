@@ -1,41 +1,49 @@
-
-class Solution
-{
-
-    bool solve(vector<vector<char>> &board, string word, int row, int col, int ind)
+class Solution {
+public:
+    
+    vector<int> di = {0, 1, -1, 0};
+    vector<int> dj = {1, 0, 0, -1};
+    bool findpath(vector<vector<char>> &board, string &word, int row, int col, int i, vector<vector<int>> &vis)
     {
-
-        if (ind == word.size())
+        if (i == word.size())
         {
+            // s.pop_back();
+            // cout << "found" << s << endl;
             return true;
         }
-        if (row < 0 || col < 0 || row >= board.size() || col >= board[0].size())
+        if (row < 0 || row >= board.size() || col < 0 || col >= board[0].size())
             return false;
-        if (board[row][col] != word[ind])
+        if (board[row][col] != word[i])
             return false;
         board[row][col] = '0';
+        for (int k = 0; k < 4; k++)
+        {
+            // print the path
+            // s += path[k];
 
-        if (solve(board, word, row, col + 1, ind + 1) || solve(board, word, row + 1, col, ind + 1) || solve(board, word, row, col - 1, ind + 1) || solve(board, word, row - 1, col, ind + 1))
-            return true;
-
-        board[row][col] = word[ind];
+            if (findpath(board, word, row + di[k], col + dj[k], i + 1, vis))
+                return true;
+            // s.pop_back();
+        }
+        board[row][col] = word[i];
         return false;
     }
 
-public:
     bool exist(vector<vector<char>> &board, string word)
     {
-        int n = board.size();
-        int m = board[0].size();
-        for (int i = 0; i < n; i++)
+
+        if (word.size() == 0)
+            return true;
+        if (board.size() == 0)
+            return false;
+        int m = board.size(), n = board[0].size();
+        vector<vector<int>> vis(m, vector<int>(n, 0));
+        for (int i = 0; i < m; i++)
         {
-            for (int j = 0; j < m; j++)
+            for (int j = 0; j < n; j++)
             {
-                if (board[i][j] == word[0])
-                {
-                    if (solve(board, word, i, j, 0))
-                        return true;
-                }
+                if (findpath(board, word, i, j, 0, vis))
+                    return true;
             }
         }
         return false;
