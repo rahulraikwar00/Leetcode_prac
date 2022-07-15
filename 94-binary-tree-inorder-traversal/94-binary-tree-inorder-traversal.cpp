@@ -20,15 +20,17 @@ public:
         TreeNode *cur = root;
         while (cur != nullptr || !st.empty())
         {
-            while (cur != nullptr)
+            if(cur != nullptr)
             {
                 st.push(cur);
                 cur = cur->left;
             }
+            else{
             cur = st.top();
             st.pop();
             res.push_back(cur->val);
             cur = cur->right;
+            }
         }
         return res;
     }
