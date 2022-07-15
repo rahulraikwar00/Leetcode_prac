@@ -11,27 +11,68 @@
  */
 class Solution {
 public:
-       vector<int> inorderTraversal(TreeNode *root)
+      
+vector<int> inorderTraversal(TreeNode *root)
+{
+    vector<int> inorder;
+
+    TreeNode *cur = root;
+    while (cur != NULL)
     {
-        vector<int> res;
-        if (root == nullptr)
-            return res;
-        stack<TreeNode *> st;
-        TreeNode *cur = root;
-        while (cur != nullptr || !st.empty())
+        if (cur->left == NULL)
         {
-            if(cur != nullptr)
+            inorder.push_back(cur->val);
+            cur = cur->right;
+        }
+        else
+        {
+            TreeNode *prev = cur->left;
+            while (prev->right != NULL && prev->right != cur)
             {
-                st.push(cur);
+                prev = prev->right;
+            }
+
+            if (prev->right == NULL)
+            {
+                prev->right = cur;
                 cur = cur->left;
             }
-            else{
-            cur = st.top();
-            st.pop();
-            res.push_back(cur->val);
-            cur = cur->right;
+            else
+            {
+                prev->right = NULL;
+                inorder.push_back(cur->val);
+                cur = cur->right;
             }
         }
-        return res;
     }
+    return inorder;
+}
 };
+
+
+// vector < int > inorderTraversal(node * root) {
+//   vector < int > inorder;
+
+//   node * cur = root;
+//   while (cur != NULL) {
+//     if (cur -> left == NULL) {
+//       inorder.push_back(cur -> data);
+//       cur = cur -> right;
+//     } else {
+//       node * prev = cur -> left;
+//       while (prev -> right != NULL && prev -> right != cur) {
+//         prev = prev -> right;
+//       }
+
+//       if (prev -> right == NULL) {
+//         prev -> right = cur;
+//         cur = cur -> left;
+//       } else {
+//         prev -> right = NULL;
+//         inorder.push_back(cur -> data);
+//         cur = cur -> right;
+//       }
+//     }
+//   }
+//   return inorder;
+// }
