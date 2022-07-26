@@ -15,7 +15,9 @@ public:
         if(!root)return false;
         if(mp.find(k-root->val)!=mp.end())return true;
         mp[root->val]=true;
-        return check(root->left,mp,k)||check(root->right,mp,k);
+        bool left = check(root->left,mp,k);
+        bool right =check(root->right,mp,k);
+        return left||right;
     }
     
     //  unordered_set<int> s;
