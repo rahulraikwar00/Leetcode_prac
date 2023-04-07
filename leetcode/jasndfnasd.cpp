@@ -1,37 +1,23 @@
-#include <bits/stdc++.h>
-#include <iostream>
-using namespace std;
-
-// print prime numbers between n and m
-int printPrimes()
+class Solution
 {
-    int n;
-    cin >> n;
-    vector<int> arr(n);
-    int count = 0, maxl = 0;
-    int last = 0;
-    for (int i = 0; i < n; i++)
+public:
+    int countOperations(int num1, int num2)
     {
-        cin >> arr[i];
-        if (arr[i] > last)
+        int count = 0;
+        while (num1 && num2)
         {
-            count++;
-            last = arr[i];
+            if (num1 >= num2)
+            {
+
+                count++;
+                num1 -= num2;
+            }
+            else
+            {
+                num2 -= num1;
+                count++;
+            }
         }
-        else
-        {
-            maxl = max(maxl, count);
-            count = 1;
-            last = arr[i];
-        }
-        // cout << "count: " << count << " maxl: " << maxl << endl;
+        return count;
     }
-    // for (auto i : arr)
-    //     cout << i << " ";
-    return max(count, maxl);
-}
-int main()
-{
-    cout << printPrimes() << endl;
-    return 0;
-}
+};

@@ -1,126 +1,24 @@
 #include <bits/stdc++.h>
+using namespace std;
 
-// #include <cstdlib>
-// int main()
-// {
-//     int startAt, moveCost, pushCost, targetSeconds;
-//     scanf("%d%d%d", &startAt, &moveCost, &pushCost);
-//     targetSeconds = atoi(stdin);
-//     int minimumCost = INT_MAX;
-//     for (int digit = startAt; digit <= targetSeconds; digit++)
-//     {
-//         int minutes = digit / 10;
-//         int seconds = digit % 10;
-//         if (minutes <= 59 && seconds <= 59)
-//         {
-//             minimumCost = pushCost + moveCost;
-//         }
-//         else if (minutes <= 59 && seconds > 59)
-//         {
-//             minimumCost = moveCost + pushCost;
-//         }
-//         else if (seconds <= 59)
-//         {
-//             minimumCost = pushCost + moveCost;
-//         }
-//     }
-//     std::cout << "The minimum cost to set the target seconds of cooking time is " << minimumCost << "." << std::endl;
-//     return 0;
-// }
-
-class Solution
+// sort the digits of the number in ascending order
+// and return the number
+int sort(int n)
 {
-public:
-    int minCostSetTime(int startAt, int moveCost, int pushCost, int targetSeconds)
+    int sorted = 0;
+    while (n)
     {
-
-        int minimumCost = INT_MAX;
-        for (int digit = startAt; digit <= targetSeconds; digit++)
-        {
-            int minutes = digit / 10;
-            int seconds = digit % 10;
-            if (minutes <= 59 && seconds <= 59)
-            {
-                minimumCost = pushCost + moveCost;
-            }
-            else if (minutes <= 59 && seconds > 59)
-            {
-                minimumCost = moveCost + pushCost;
-            }
-            else if (seconds <= 59)
-            {
-                minimumCost = pushCost + moveCost;
-            }
-        }
-        return minimumCost;
+        int d = n % 10;
+        sorted = sorted * 10 + d;
+        n /= 10;
     }
-};
-
-int main(
-    int argc,
-    char const *argv[])
-{
-    Solution solution;
-    int startAt, moveCost, pushCost, targetSeconds;
-    scanf("%d%d%d", &startAt, &moveCost, &pushCost);
-    targetSeconds = atoi(argv[1]);
-    solution.minCostSetTime(startAt, moveCost, pushCost, targetSeconds);
-    return 0;
+    return sorted;
 }
 
-#include <iostream>
-#include <cstdlib>
 int main()
 {
-    int startAt, moveCost, pushCost, targetSeconds;
-    scanf("%d", &startAt);
-    targetSeconds = atoi(stdin);
-    int minimumCost = INT_MAX;
-    for (int digit = startAt; digit <= targetSeconds; digit++)
-    {
-        int minutes = digit / 10;
-        int seconds = digit % 10;
-        if (minutes <= 59 && seconds <= 59)
-        {
-            minimumCost = pushCost + moveCost;
-        }
-        else if (minutes <= 59 && seconds > 59)
-        {
-            minimumCost = moveCost + pushCost;
-        }
-        else if (seconds <= 59)
-        {
-            minimumCost = pushCost + moveCost;
-        }
-    }
-    std::cout << "The minimum cost to set the target seconds of cooking time is " << minimumCost << "." << std::endl;
-    return 0;
-}
-
-#include <iostream> #include <cstdlib>
-int main()
-{
-    int startAt, moveCost, pushCost, targetSeconds;
-    scanf("%d", &startAt);
-    targetSeconds = atoi(stdin);
-    int minimumCost = INT_MAX;
-    for (int digit = startAt; digit <= targetSeconds; digit++)
-    {
-        int minutes = digit / 10;
-        int seconds = digit % 10;
-        if (minutes <= 59 && seconds <= 59)
-        {
-            minimumCost = pushCost + moveCost;
-        }
-        else if (minutes <= 59 && seconds > 59)
-        {
-            minimumCost = moveCost + pushCost;
-        }
-        else if (seconds <= 59)
-        {
-            minimumCost = pushCost + moveCost;
-        }
-    }
-    std::cout << "The minimum cost to set the target seconds of cooking time is " << minimumCost << "." << std::endl;
+    int n;
+    cin >> n;
+    cout << sortDigits(n);
     return 0;
 }
